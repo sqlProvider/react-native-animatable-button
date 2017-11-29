@@ -1,0 +1,40 @@
+{
+	"name": "react-native-animatable-button",
+	"version": "1.0.0",
+	"private": true,
+	"main": "index.js",
+	"typings": "index.d.ts",
+	"scripts": {},
+	"dependencies": {
+		"tinycolor2": "^1.4.1"
+	},
+	"devDependencies": {
+		"@types/react": "16.0.2",
+		"@types/react-native": "0.49.5",
+		"@types/tinycolor2": "^1.4.0",
+		"tslint": "^5.8.0",
+		"typescript": "^2.6.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sqlProvider/react-native-animatable-button.git"
+	},
+	"keywords": [
+		"react",
+		"react-native",
+		"button",
+		"animated",
+		"animatable-button",
+		"react-native-animatable-button"
+	],
+	"author": {
+		"name": "Semih KEŞKEK",
+		"email": "keskeksmh@gmail.com",
+		"url": "http://github.com/sqlProvider"
+	},
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/sqlProvider/react-native-animatable-button/issues"
+	},
+	"homepage": "https://github.com/sqlProvider/react-native-animatable-button#readme"
+}
