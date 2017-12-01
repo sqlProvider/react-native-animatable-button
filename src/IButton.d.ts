@@ -17,7 +17,7 @@ export interface RecursiveArray<T> {
 }
 
 export module IButton {
-	export interface IProps extends IButtonState{
+	export interface IProps extends IButtonState {
 		// Container Settings
 		accessibilityLabel?: string;
 		buttonContainerStyle?: ViewStyle;
@@ -25,7 +25,7 @@ export module IButton {
 		// State Settings
 		selectedState?: string;
 		states: {
-			[key: string]: IButtonState;
+			[key: string]: IButtonStateWithPrivate;
 		};
 
 		// Touchable Settings
@@ -87,9 +87,16 @@ export module IButton {
 		// Events
 		onLongPress(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
 		onPress(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
+	}
 
+	export interface IButtonStateWithPrivate extends IButtonState {
 		// Private
 		_index?: number;
 		_backgroundColor?: string;
+	}
+
+	export interface ISerializeProps {
+		defaultProps: IProps;
+		defaultButtonState: IButtonStateWithPrivate;
 	}
 }

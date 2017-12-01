@@ -18,8 +18,8 @@ import { ButtonSize, Styles } from './Styles';
 
 export class Button extends Component<IButton.IProps, IButton.IState> {
 	private buttonSize: { height: number };
-	private prevState: IButton.IButtonState;
-	private nextState: IButton.IButtonState;
+	private prevState: IButton.IButtonStateWithPrivate;
+	private nextState: IButton.IButtonStateWithPrivate;
 	private stateLength: number;
 	constructor(props: IButton.IProps) {
 		super(props);
@@ -280,7 +280,7 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		return containers;
 	}
 
-	private renderButtonInside(state: IButton.IButtonState): Array<JSX.Element> {
+	private renderButtonInside(state: IButton.IButtonStateWithPrivate): Array<JSX.Element> {
 		const activeState = state || this.state.states[this.state.selectedState];
 		const buttonInside: Array<JSX.Element> = [];
 
@@ -295,7 +295,7 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		return buttonInside;
 	}
 
-	private renderIcon(activeState: IButton.IButtonState): JSX.Element {
+	private renderIcon(activeState: IButton.IButtonStateWithPrivate): JSX.Element {
 		if (activeState.icon === undefined) return;
 
 		const {
@@ -335,7 +335,7 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 			);
 	}
 
-	private renderText(activeState: IButton.IButtonState): JSX.Element {
+	private renderText(activeState: IButton.IButtonStateWithPrivate): JSX.Element {
 		return (
 			<Text style={[
 				Styles.textStyle,
@@ -349,7 +349,7 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		);
 	}
 
-	private renderSpinner(state: IButton.IButtonState): JSX.Element {
+	private renderSpinner(state: IButton.IButtonStateWithPrivate): JSX.Element {
 		return (
 			<ActivityIndicator
 				key={`reactNativeAnimetableButton_Spinner_${state._index}`}
@@ -404,8 +404,8 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 			this.state.onLongPress(event, activeState);
 	}
 
-	private serializeProps(callFromRender: boolean = false): { defaultProps: IButton.IProps, defaultButtonState: IButton.IButtonState } {
-		const defaultButtonState: IButton.IButtonState = {
+	private serializeProps(callFromRender: boolean = false): IButton.ISerializeProps {
+		const defaultButtonState: IButton.IButtonStateWithPrivate = {
 			buttonInsideContainerStyle: {
 				alignItems: 'center',
 				backgroundColor: 'rgba(0,0,0,0)',
@@ -440,7 +440,7 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		};
 
 		const defaultProps: IButton.IProps = {
-			...defaultButtonState,
+			...defaultButtonState as IButton.IButtonState,
 			accessibilityLabel: 'reactNativeAnimetableButton',
 			buttonContainerStyle: {
 				backgroundColor: 'rgba(0,0,0,0)',
