@@ -9,13 +9,6 @@ import {
 	TextStyle
 } from 'react-native';
 
-/**
- * Recursive Array Interface
- */
-export interface RecursiveArray<T> {
-	[i: number]: T | RecursiveArray<T>;
-}
-
 export module IButton {
 	export interface IProps extends IButtonState {
 		// Container Settings
@@ -24,7 +17,7 @@ export module IButton {
 		
 		// State Settings
 		selectedState?: string;
-		states: {
+		states?: {
 			[key: string]: IButtonStateWithPrivate;
 		};
 
@@ -63,12 +56,12 @@ export module IButton {
 
 		// Icon Settings
 		icon?: ImageURISource | any;
-		iconStyle?: RecursiveArray<ImageStyle>;
+		iconStyle?: Array<ImageStyle> | ImageStyle;
 		iconPosition?: 'left' | 'right'; 
 		
 		// Text Settings
 		text: string;
-		textStyle?: RecursiveArray<TextStyle>;
+		textStyle?: Array<TextStyle> | TextStyle;
 		
 		// Spinner Settings
 		spinner?: boolean;
@@ -79,14 +72,14 @@ export module IButton {
 		asyncIconAndTextAnimationDiff?: number;
 
 		// Renderers
-		renderButtonInside(state: IButtonState): JSX.Element;
-		renderIcon(state: IButtonState): JSX.Element;
-		renderSpinner(state: IButtonState): JSX.Element;
-		renderText(state: IButtonState): JSX.Element;
+		renderButtonInside?(state: IButtonState): JSX.Element;
+		renderIcon?(state: IButtonState): JSX.Element;
+		renderSpinner?(state: IButtonState): JSX.Element;
+		renderText?(state: IButtonState): JSX.Element;
 
 		// Events
-		onLongPress(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
-		onPress(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
+		onLongPress?(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
+		onPress?(event?: GestureResponderEvent, activeState?: IButtonState): boolean | void;
 	}
 
 	export interface IButtonStateWithPrivate extends IButtonState {

@@ -13,7 +13,7 @@ import {
 
 import tinycolor from 'tinycolor2';
 
-import { IButton, RecursiveArray } from './IButton';
+import { IButton } from './IButton';
 import { ButtonSize, Styles } from './Styles';
 
 export class Button extends Component<IButton.IProps, IButton.IState> {
