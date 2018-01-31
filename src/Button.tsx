@@ -8,7 +8,8 @@ import {
 	Text,
 	TouchableOpacity,
 	TouchableWithoutFeedback,
-	View
+	View,
+	ViewStyle
 } from 'react-native';
 
 import tinycolor from 'tinycolor2';
@@ -35,15 +36,15 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 			...defaultProps,
 			...props,
 			buttonContainerStyle: {
-				...defaultProps.buttonContainerStyle,
-				...props.buttonContainerStyle
+				...this.serializeStyle(defaultProps.buttonContainerStyle),
+				...this.serializeStyle(props.buttonContainerStyle)
 			}
 		} as IButton.IState;
 
 		if (this.state.states.default && this.state.states.default.text === '___MUSTBEINITALIZE___')
 			this.state.states.default = this.state;
 
-		const height = (this.state.buttonContainerStyle.height || this.buttonSize.height).toString();
+		const height = (this.serializeStyle(this.state.buttonContainerStyle).height || this.buttonSize.height).toString();
 		this.buttonSize.height = !isNaN(parseInt(height.toString(), 0)) ?
 			parseInt(height.toString(), 0) : this.buttonSize.height;
 
@@ -66,20 +67,24 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 
 				this.state.states[stateName] = {
 					...defaultButtonState,
-					...this.state.states[stateName],
+					...state,
 					_index: index,
 					buttonInsideContainerStyle: {
-						...defaultButtonState.buttonInsideContainerStyle,
-						...this.state.states[stateName].buttonInsideContainerStyle
+						...this.serializeStyle(defaultButtonState.buttonInsideContainerStyle),
+						...this.serializeStyle(state.buttonInsideContainerStyle)
 					}
 				};
 
-				if (this.state.backgroundAnimation === 'animated')
-					this.state.states[stateName]._backgroundColor =
-						this.state.states[stateName].buttonInsideContainerStyle.backgroundColor ||
-						this.state.buttonInsideContainerStyle.backgroundColor;
+				if (this.state.backgroundAnimation === 'animated') {
+					const backgroundInStates: string = this.serializeStyle(state.buttonInsideContainerStyle).backgroundColor;
+					const backgroundInProps: string = this.serializeStyle(this.state.buttonInsideContainerStyle).backgroundColor;
+
+					state._backgroundColor =
+						backgroundInStates ||
+						backgroundInProps;
+				}
 				else
-					this.state.states[stateName]._backgroundColor = 'rgba(0,0,0,0)';
+					state._backgroundColor = 'rgba(0,0,0,0)';
 
 				index++;
 			}
@@ -485,5 +490,16 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		const color = tinycolor(willConvert);
 
 		return color.toRgbString();
+	}
+
+	private serializeStyle(arr: Array<ViewStyle> & ViewStyle): ViewStyle {
+		if (Array.isArray(arr)) {
+			let styles: ViewStyle = {};
+			this.state.buttonInsideContainerStyle.map(style => styles = { ...styles, ...style });
+
+			return styles;
+		}
+		else
+			return arr;
 	}
 }
