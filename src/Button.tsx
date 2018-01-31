@@ -492,10 +492,10 @@ export class Button extends Component<IButton.IProps, IButton.IState> {
 		return color.toRgbString();
 	}
 
-	private serializeStyle(arr: Array<ViewStyle> & ViewStyle): ViewStyle {
+	private serializeStyle(arr: Array<ViewStyle> | ViewStyle): ViewStyle {
 		if (Array.isArray(arr)) {
 			let styles: ViewStyle = {};
-			this.state.buttonInsideContainerStyle.map(style => styles = { ...styles, ...style });
+			(this.state.buttonInsideContainerStyle as Array<ViewStyle>).map(style => styles = { ...styles, ...style });
 
 			return styles;
 		}

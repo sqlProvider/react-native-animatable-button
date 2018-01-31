@@ -13,7 +13,7 @@ export module IButton {
 	export interface IProps extends IButtonState {
 		// Container Settings
 		accessibilityLabel?: string;
-		buttonContainerStyle?: ViewStyle & Array<ViewStyle>;
+		buttonContainerStyle?: ViewStyle | Array<ViewStyle>;
 		
 		// State Settings
 		selectedState?: string;
@@ -52,7 +52,7 @@ export module IButton {
 
 	export interface IButtonState {
 		// Container Settings
-		buttonInsideContainerStyle?: ViewStyle & Array<ViewStyle>;
+		buttonInsideContainerStyle?: ViewStyle | Array<ViewStyle>;
 
 		// Icon Settings
 		icon?: ImageURISource | any;
